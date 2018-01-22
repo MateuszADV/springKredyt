@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KREDYT</title>
+    <link rel="stylesheet" th:href="@{css/credit.css}" type="text/css">
+</head>
+<body>
+<center>
+    <div>
+        <h1>Formularz kredytowy</h1>
+    </div>
+
+    <div id="dataCredit" th:if="${info}==null">
+        <form th:action="@{/}" method="post">
+            <table id="creditTabela" >
+                <tr>
+                    <td>Wysokość kredytu</td>
+                    <td><input type="text" th:name="totalCredit" placeholder="Wysokość kredytu"></td>
+                </tr>
+                <tr>
+                    <td>Dochody</td>
+                    <td><input type="text" th:name="income" placeholder="Przychody"></td>
+                </tr>
+                <tr>
+                    <td>Liczba rat</td>
+                    <td><input type="text" th:name="numberOfMonths" placeholder="Liczba rat"></td>
+                </tr>
+
+            </table>
+            <p><input type="submit" value="Sprawdz"></p>
+        </form>
+    </div>
+
+    <div th:if="${info}==true">
+        <h1 style="color: green">Kredyt został przyznany</h1>
+    </div>
+    <div id="creditTrue" th:if="${info}==false">
+        <h1 style="color: red">Odmowa kredytu</h1>
+        <p>Rata jest wyższa od przychodów</p>
+        <p>Makymalny kredy jaki możemy przynać to:</p>
+        <table cellspacing="0">
+            <tr>
+                <td >Maksymalna kwota kredytu</td>
+                <td th:text="${maxCredit}"></td>
+            </tr>
+            <tr>
+                <td>Na okres</td>
+                <td th:text="${numberOfMonths}+' miesiecy'"></td>
+            </tr>
+            <tr>
+                <td>Rata miesiączna</td>
+                <td th:text="${maxCredit}/${numberOfMonths}+'zł/misięcznie'"></td>
+            </tr>
+        </table>
+    </div>
+</center>
+
+</body>
+</html>
